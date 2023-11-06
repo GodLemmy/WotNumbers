@@ -2,13 +2,11 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-
 ###############################################################################
 # Spesify languages to ignore 
 ###############################################################################
 * linguist-vendored
 *.cs linguist-vendored=false
-
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
@@ -17,7 +15,6 @@
 # Note: This is only used by command line
 ###############################################################################
 #*.cs     diff=csharp
-
 ###############################################################################
 # Set the merge driver for project and solution files
 #
@@ -40,7 +37,6 @@
 #*.modelproj merge=binary
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
-
 ###############################################################################
 # behavior for image files
 #
@@ -49,7 +45,6 @@
 #*.jpg   binary
 #*.png   binary
 #*.gif   binary
-
 ###############################################################################
 # diff behavior for common document formats
 # 
@@ -67,3 +62,5 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+“.msi” filter=lfs diff=lfs merge=lfs -text
+“.msi.MD5” filter=lfs diff=lfs merge=lfs -text

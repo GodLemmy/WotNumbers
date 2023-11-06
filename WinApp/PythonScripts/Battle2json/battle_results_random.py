@@ -1,6 +1,7 @@
-# uncompyle6 version 3.7.4
-# Python bytecode 2.7 (62211)
-# Decompiled from: Python 2.7.8 (default, Jun 30 2014, 16:08:48) [MSC v.1500 64 bit (AMD64)]
+# uncompyle6 version 3.9.0
+# Python bytecode version base 2.7 (62211)
+# Decompiled from: Python 3.8.10 (default, May 26 2023, 14:05:08) 
+# [GCC 9.4.0]
 # Embedded file name: scripts/common/battle_results/random.py
 from battle_results_constants import BATTLE_RESULT_ENTRY_TYPE as ENTRY_TYPE
 BATTLE_RESULTS = []

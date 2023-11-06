@@ -1,10 +1,10 @@
-# uncompyle6 version 3.7.4
-# Python bytecode 2.7 (62211)
-# Decompiled from: Python 2.7.8 (default, Jun 30 2014, 16:08:48) [MSC v.1500 64 bit (AMD64)]
+# uncompyle6 version 3.9.0
+# Python bytecode version base 2.7 (62211)
+# Decompiled from: Python 3.8.10 (default, May 26 2023, 14:05:08) 
+# [GCC 9.4.0]
 # Embedded file name: scripts/common/battle_results/battle_results_common.py
 from battle_results_constants import BATTLE_RESULT_ENTRY_TYPE as ENTRY_TYPE
-#Modified for WotNumbers 
-#from constants import FLAG_ACTION
+# from constants import FLAG_ACTION
 class FLAG_ACTION:
     PICKED_UP_FROM_BASE = 0
     PICKED_UP_FROM_GROUND = 1
@@ -12,23 +12,19 @@ class FLAG_ACTION:
     LOST = 3
     RANGE = (
      PICKED_UP_FROM_BASE, PICKED_UP_FROM_GROUND, CAPTURED, LOST)
-
 from DictPackers import DictPacker, MergeDictPacker, SimpleDictPacker, DeltaPacker, ValueReplayPacker, roundToInt
-#Modified for WotNumbers
-#from items.vehicles import VEHICLE_DEVICE_TYPE_NAMES, VEHICLE_TANKMAN_TYPE_NAMES
+# from items.vehicles import VEHICLE_DEVICE_TYPE_NAMES, VEHICLE_TANKMAN_TYPE_NAMES
 VEHICLE_DEVICE_TYPE_NAMES = (
  'engine', 'ammoBay', 'fuelTank', 'radio', 'track', 'gun', 'turretRotator', 'surveyingDevice', 'STUN_PLACEHOLDER',
  'wheel')
 VEHICLE_TANKMAN_TYPE_NAMES = (
  'commander', 'driver', 'radioman', 'gunner', 'loader')
-
-#Modified for WotNumbers
-#from items.badges_common import BadgesCommon
+# from items.badges_common import BadgesCommon
 class BadgesCommon(object):
     @staticmethod
     def selectedBadgesEmpty():
         return ([], [])
-
+        
 BATTLE_RESULTS = [
  (
   'health', int, 0, None, 'skip', ENTRY_TYPE.VEHICLE_ALL),
@@ -178,6 +174,8 @@ BATTLE_RESULTS = [
   'damagedHp', int, 0, None, 'sum', ENTRY_TYPE.VEHICLE_ALL),
  (
   'stunned', int, 0, None, 'sum', ENTRY_TYPE.VEHICLE_ALL),
+ (
+  'marksOnGun', int, 0, None, 'skip', ENTRY_TYPE.VEHICLE_ALL),
  (
   'repair', int, 0, None, 'sum', ENTRY_TYPE.VEHICLE_SELF),
  (
@@ -454,8 +452,6 @@ BATTLE_RESULTS = [
   'vehTypeLockTime', int, 0, None, 'skip', ENTRY_TYPE.VEHICLE_SELF),
  (
   'serviceProviderID', int, 0, None, 'skip', ENTRY_TYPE.VEHICLE_SELF),
- (
-  'marksOnGun', int, 0, None, 'skip', ENTRY_TYPE.VEHICLE_SELF),
  (
   'movingAvgDamage', int, 0, None, 'skip', ENTRY_TYPE.VEHICLE_SELF),
  (
@@ -768,7 +764,9 @@ BATTLE_RESULTS = [
  (
   'eventBattlePassPointsList', list, [], None, 'skip', ENTRY_TYPE.ACCOUNT_SELF),
  (
-  'eventBattlePassPoints', int, 0, None, 'sum', ENTRY_TYPE.ACCOUNT_SELF)]
+  'eventBattlePassPoints', int, 0, None, 'sum', ENTRY_TYPE.ACCOUNT_SELF),
+ (
+  'prestigeResults', dict, {}, None, 'skip', ENTRY_TYPE.VEHICLE_SELF)]
 BATTLE_PASS_RESULTS = [
  (
   'bpChapter', int, 0, None, 'skip', ENTRY_TYPE.ACCOUNT_ALL),

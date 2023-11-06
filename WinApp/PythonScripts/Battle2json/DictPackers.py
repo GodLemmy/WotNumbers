@@ -1,10 +1,10 @@
-# uncompyle6 version 3.7.4
-# Python bytecode 2.7 (62211)
-# Decompiled from: Python 2.7.8 (default, Jun 30 2014, 16:08:48) [MSC v.1500 64 bit (AMD64)]
+# uncompyle6 version 3.9.0
+# Python bytecode version base 2.7 (62211)
+# Decompiled from: Python 3.8.10 (default, May 26 2023, 14:05:08) 
+# [GCC 9.4.0]
 # Embedded file name: scripts/common/DictPackers.py
 import copy
-#Modified for WoTNumbers
-#from debug_utils import LOG_ERROR
+# from debug_utils import LOG_ERROR
 from binascii import crc32
 from functools import partial
 
@@ -41,7 +41,7 @@ class DeltaPacker(object):
              None] * len(seq)
             ret[0] = seq[0]
             for index in xrange(1, len(seq)):
-                ret[index] = ret[(index - 1)] + seq[index]
+                ret[index] = ret[index - 1] + seq[index]
 
             return ret
 
@@ -83,8 +83,7 @@ class DictPacker(object):
                         v = None
                 l[index + 1] = v
             except Exception as e:
-                #Modified for WoTNumbers
-                #LOG_ERROR('error while packing:', index, metaEntry, str(e))
+                # LOG_ERROR('error while packing:', index, metaEntry, str(e))
                 raise
 
         return l
@@ -95,7 +94,7 @@ class DictPacker(object):
             return
         getDefaultValue = self.getDefaultValue
         for index, meta in enumerate(self._metaData):
-            val = dataList[(index + 1)]
+            val = dataList[index + 1]
             name, _, _, packer, _ = meta
             if val is None:
                 val = getDefaultValue(index)
@@ -189,7 +188,7 @@ class Meta(DictPacker):
 
     def __init__(self, *metaData):
         DictPacker.__init__(self, *metaData)
-        self.__nameToData = {name:(index, transportType, default, packer, aggFunc) for index, (name, transportType, default, packer, aggFunc) in enumerate(self._metaData)}
+        self.__nameToData = {name: (index, transportType, default, packer, aggFunc) for index, (name, transportType, default, packer, aggFunc) in enumerate(self._metaData)}
         self.__names = set(self.__nameToData.keys())
         self.__initDefaults()
 
@@ -242,11 +241,11 @@ class Meta(DictPacker):
             if mutableType == 'immutable':
                 defaultsImmutable[name] = default
             elif mutableType == 'mutableList':
-                defaultsMutable[name] = partial(lambda x: x[:], default)
+                defaultsMutable[name] = partial((lambda x: x[:]), default)
             elif mutableType == 'mutableDeep':
                 defaultsMutable[name] = partial(copy.deepcopy, default)
             elif mutableType == 'mutableCopy':
-                defaultsMutable[name] = partial(lambda x: x.copy(), default)
+                defaultsMutable[name] = partial((lambda x: x.copy()), default)
             else:
                 raise KeyError(mutableType)
 

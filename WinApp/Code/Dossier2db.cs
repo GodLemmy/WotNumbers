@@ -8,10 +8,8 @@ using System.IO;
 using System.Text;
 using System.Linq;
 using System.Data.SqlClient;
-using System.Data.SQLite;
 using System.Windows.Forms;
 using System.Threading.Tasks;
-using WinApp.Code;
 
 namespace WinApp.Code
 {
@@ -677,39 +675,6 @@ namespace WinApp.Code
 													int battlesNew,
 													bool saveBattleResult)
 		{
-			// Update of marksOnGun (added 2023-11-05)
-			int tankid, MoG;
-			bool btemp;
-			string stemp, stemp2, jp, sqlt, CFileName;
-			JToken keys;
-			CFileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\WoT Numbers\\config.json";
-			JObject CBase = JObject.Parse(File.ReadAllText(CFileName));
-			int playerId = (int)CBase["playerId"];
-			string dossierJsonFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\WoT Numbers\\Dossier.json";
-			JObject JBase = JObject.Parse(File.ReadAllText(dossierJsonFile));
-			JObject tanksv2 = JBase["tanks_v2"].Value<JObject>();
-			foreach (var x in tanksv2)
-			{
-				stemp = x.Key;
-				keys = x.Value;
-				btemp = int.TryParse(stemp, out tankid);
-				jp = "tanks_v2." + stemp + ".achievements.marksOnGun";
-				if (JBase.SelectToken(jp) != null)
-				{
-					btemp = int.TryParse(JBase.SelectToken(jp).ToString(), out MoG);
-					sqlt = "SELECT id FROM playerTank WHERE tankId = " + tankid.ToString() + " AND playerId = " + playerId.ToString() + ";";
-					DataTable dt;
-					dt = await DB.FetchData(sqlt);
-					stemp2 = "";
-					if (dt.Rows.Count > 0)
-					{
-						stemp2 = dt.Rows[0]["id"].ToString();
-						sqlt = "UPDATE playerTankBattle SET marksOnGun = " + MoG.ToString() + " WHERE playerTankId = " + stemp2 + ";";
-						await DB.ExecuteNonQuery(sqlt);
-					}
-				}
-			}
-
 			// Get or create playerTank BattleResult
 			DataTable playerTankBattleOld = await TankHelper.GetPlayerTankBattle(playerTankId, battleMode, true);
 			// Update playerTankBattle
